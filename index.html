@@ -10,58 +10,27 @@
     <div class="container">
         <h1>Sistema de Gestión de Parqueadero UL</h1>
 
-        <div class="parking-management">
-            <!-- Panel de información -->
-            <div class="info-panel">
-                <h2>Estado del Parqueadero</h2>
-                <p>Espacios disponibles: <span id="available-spaces">150</span></p>
-                <p>Vehículos estacionados: <span id="parked-vehicles">0</span></p>
-            </div>
-
-            <!-- Formulario de entrada -->
-            <div class="entry-form">
-                <h2>Registrar Entrada</h2>
-                <input type="text" id="plate" placeholder="Placa del vehículo" required>
-                <select id="vehicle-type" required>
-                    <option value="">Seleccione tipo de vehículo</option>
-                    <option value="car">Carro</option>
-                    <option value="motorcycle">Moto</option>
-                </select>
-                <select id="zone" required>
-                    <option value="">Seleccione zona</option>
-                    <option value="A">Zona A</option>
-                    <option value="B">Zona B</option>
-                    <option value="C">Zona C</option>
-                </select>
-                <button onclick="handleVehicleEntry()">Registrar Entrada</button>
-            </div>
-
-            <!-- Formulario de salida -->
-            <div class="exit-form">
-                <h2>Registrar Salida</h2>
-                <input type="text" id="exit-plate" placeholder="Placa del vehículo" required>
-                <button onclick="handleVehicleExit()">Registrar Salida</button>
+        <div id="map-container">
+            <img src="mapa-parqueadero.png" class="map-image" alt="Mapa del Parqueadero">
+            <div id="zone-view">
+                <div class="parking-zone" data-zone="A">A</div>
+                <div class="parking-zone" data-zone="B">B</div>
+                <div class="parking-zone" data-zone="C">C</div>
             </div>
         </div>
 
-        <!-- Tabla de vehículos actuales -->
-        <div class="current-vehicles">
-            <h2>Vehículos Estacionados</h2>
-            <table id="vehicles-table">
-                <thead>
-                    <tr>
-                        <th>Placa</th>
-                        <th>Tipo</th>
-                        <th>Zona</th>
-                        <th>Hora de Entrada</th>
-                    </tr>
-                </thead>
-                <tbody id="vehicles-list">
-                </tbody>
-            </table>
+        <div class="info-panel">
+            <p>Espacios disponibles: <span id="available-spaces">150</span></p>
+            <p>Vehículos estacionados: <span id="parked-vehicles">0</span></p>
+            <button id="generateReport">Generar Informe</button>
         </div>
     </div>
 
-    <script src="parking-system.js"></script>
+    <!-- Firebase App (la base) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <!-- Firebase Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+    <!-- Tu script -->
+    <script src="parking.js"></script>
 </body>
 </html>
