@@ -1,18 +1,17 @@
-// Configuración de GitHub - REEMPLAZA ESTOS VALORES
-const GITHUB_TOKEN = 'tu_github_token';
-const OWNER = 'tu_usuario_github';
-const REPO = 'tu_repositorio';
+
+const GITHUB_TOKEN = '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';
+const OWNER = 'CABF44';
+const REPO = 'ParkingUL';
 const DATABASE_PATH = 'db/parking.json';
 
-// Clase principal del sistema de parqueadero
+
 class ParkingSystem {
     constructor() {
         this.baseURL = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${DATABASE_PATH}`;
-        // Inicializar la interfaz al crear la instancia
         this.initializeInterface();
     }
 
-    // Inicializar la interfaz y los eventos
+    
     async initializeInterface() {
         await this.updateParkingInfo();
         await this.updateVehiclesList();
@@ -23,7 +22,7 @@ class ParkingSystem {
         }, 300000);
     }
 
-    // Obtener datos actuales del archivo JSON en GitHub
+    
     async getCurrentData() {
         try {
             const response = await fetch(this.baseURL, {
@@ -46,10 +45,10 @@ class ParkingSystem {
         }
     }
 
-    // Guardar datos en GitHub
+    
     async saveData(data) {
         try {
-            // Obtener el SHA del archivo actual si existe
+            
             let sha = '';
             try {
                 const currentFile = await fetch(this.baseURL, {
@@ -62,20 +61,20 @@ class ParkingSystem {
                     sha = fileData.sha;
                 }
             } catch (error) {
-                // El archivo no existe aún, continuamos sin SHA
+                
             }
 
-            // Preparar el contenido actualizado
+            
             const content = btoa(JSON.stringify(data, null, 2));
 
-            // Configurar la petición
+            
             const body = {
                 message: 'Actualización de datos del parqueadero',
                 content,
-                ...(sha && { sha }) // Incluir SHA solo si existe
+                ...(sha && { sha }) 
             };
 
-            // Realizar la actualización
+            
             const response = await fetch(this.baseURL, {
                 method: 'PUT',
                 headers: {
@@ -96,7 +95,7 @@ class ParkingSystem {
         }
     }
 
-    // Registrar entrada de vehículo
+    
     async registerEntry(vehicleData) {
         try {
             const currentData = await this.getCurrentData();
@@ -136,7 +135,7 @@ class ParkingSystem {
         }
     }
 
-    // Registrar salida de vehículo
+    
     async registerExit(plate) {
         try {
             const currentData = await this.getCurrentData();
@@ -152,18 +151,18 @@ class ParkingSystem {
                 return false;
             }
 
-            // Actualizar estado del vehículo
+            
             const vehicle = currentData.vehicles[vehicleIndex];
             vehicle.exitTime = timestamp;
             vehicle.status = 'inactive';
 
-            // Registrar en el historial
+            
             currentData.history.push({
                 ...vehicle,
                 type: 'exit'
             });
 
-            // Eliminar de la lista de vehículos activos
+            
             currentData.vehicles.splice(vehicleIndex, 1);
 
             const success = await this.saveData(currentData);
@@ -181,21 +180,21 @@ class ParkingSystem {
         }
     }
 
-    // Actualizar información del parqueadero en la interfaz
+    
     async updateParkingInfo() {
         const data = await this.getCurrentData();
         const availableSpaces = document.getElementById('available-spaces');
         const parkedVehicles = document.getElementById('parked-vehicles');
         
         if (availableSpaces && parkedVehicles) {
-            const total = 150; // Capacidad total del parqueadero
+            const total = 150; 
             const current = data.vehicles.length;
             availableSpaces.textContent = total - current;
             parkedVehicles.textContent = current;
         }
     }
 
-    // Actualizar lista de vehículos en la interfaz
+    
     async updateVehiclesList() {
         const data = await this.getCurrentData();
         const vehiclesList = document.getElementById('vehicles-list');
@@ -212,23 +211,23 @@ class ParkingSystem {
         }
     }
 
-    // Obtener vehículos actuales
+    
     async getCurrentVehicles() {
         const data = await this.getCurrentData();
         return data.vehicles;
     }
 
-    // Obtener historial
+    
     async getHistory() {
         const data = await this.getCurrentData();
         return data.history;
     }
 }
 
-// Crear instancia del sistema
+
 const parkingSystem = new ParkingSystem();
 
-// Función para manejar la entrada de vehículos
+
 async function handleVehicleEntry() {
     const plate = document.getElementById('plate').value;
     const type = document.getElementById('vehicle-type').value;
@@ -243,14 +242,14 @@ async function handleVehicleEntry() {
     const success = await parkingSystem.registerEntry(vehicleData);
     
     if (success) {
-        // Limpiar el formulario
+        
         document.getElementById('plate').value = '';
         document.getElementById('vehicle-type').value = '';
         document.getElementById('zone').value = '';
     }
 }
 
-// Función para manejar la salida de vehículos
+
 async function handleVehicleExit() {
     const plate = document.getElementById('exit-plate').value;
 
@@ -262,7 +261,7 @@ async function handleVehicleExit() {
     const success = await parkingSystem.registerExit(plate);
     
     if (success) {
-        // Limpiar el formulario
+        
         document.getElementById('exit-plate').value = '';
     }
 }
