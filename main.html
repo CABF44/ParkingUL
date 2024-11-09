@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css">
+    <title>Sistema de Gestión de Parqueadero UL</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Sistema de Gestión de Parqueadero UL</h1>
+        
+        <div id="map-container">
+	     <img src="imagenes/mapa-parqueadero.png" alt="Mapa del Parqueadero" class="map-image">
+            <button id="zona-btn-A" class="zona-btn" onclick="showZone('A')">A</button>
+            <button id="zona-btn-B" class="zona-btn" onclick="showZone('B')">B</button>
+            <button id="zona-btn-C" class="zona-btn" onclick="showZone('C')">C</button>
+        </div>
+
+        <div id="zone-view">
+            <div id="parking-zones">
+            </div>
+        </div>
+
+        <div class="info-panel">
+            <p id="espacios-disponibles">Espacios disponibles: 150</p>
+            <p id="vehiculos-estacionados">Vehículos estacionados: 0</p>
+            <button id="generate-report" onclick="generateReport()">Generar Informe</button>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
