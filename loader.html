@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/loader.css">
     <title>Cargando Sistema de Parqueadero</title>
+    <script>
+    if (!sessionStorage.getItem('visitedLoader')) {
+      sessionStorage.setItem('visitedLoader', 'true');
+      window.location.href = 'index.html';
+    }
+  </script>
 </head>
 <body>
     <div class="loader-container" id="loader">
