@@ -1,0 +1,232 @@
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #ffffff;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    #map-container {
+        position: relative;
+        width: 800px;
+        height: 600px;
+        margin: 0 auto;
+        background-image: url('imagenes/mapa-parqueadero.png');
+        background-size: cover;
+        background-position: center;
+        margin-bottom: 20px;
+        transition: all 0.5s ease;
+    }
+
+    .map-transition {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: white;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+
+    .map-transition.active {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .map-transition img {
+        max-width: 90%;
+        max-height: 90vh;
+        transform: scale(1);
+        transition: transform 0.5s ease;
+    }
+
+    .map-transition.zooming img {
+        transform: scale(1.2);
+    }
+
+
+
+    .zona-btn {
+        position: absolute;
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: rgba(76, 175, 80, 0.9);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .zona-btn:hover {
+        background-color: rgba(69, 160, 73, 1);
+        transform: scale(1.1);
+    }
+
+    #zona-btn-A {
+        left: 9.5%;
+        top: 57.5%;
+    }
+
+    #zona-btn-B {
+        left: 41.5%;
+        top: 17.15%;
+    }
+
+    #zona-btn-C {
+        right: 18.9%;
+        top: 44.8%;
+    }
+
+    .parking-grid {
+        display: none;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .parking-space {
+        padding: 15px;
+        text-align: center;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .parking-space.occupied {
+        background-color: #f44336;
+    }
+
+    .info-panel {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0);
+    }
+
+    .back-btn {
+        margin-bottom: 20px;
+        padding: 10px 20px;
+        background-color: #2196F3;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .back-btn:hover {
+        background-color: #1976D2;
+    }
+
+    #generate-report {
+        padding: 10px 20px;
+        background-color: #a80b00;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    #generate-report:hover {
+        background-color: #860000;
+    }
+
+    #zone-view {
+        display: none;
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        margin-top: 20px;
+        width: 200%;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .zone-container {
+        width: 100%;
+        padding: 20px;
+        opacity: 0;
+        transform: scale(0.95);
+        transition: all 0.3s ease;
+    }
+
+    .zone-container.visible {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+
+
+    .header-container {
+    margin-bottom: 20px;
+    }
+
+    .content-container {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    }
+
+    .zone-image {
+        flex: 0 0 400px;
+        height: 300px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    
+    }
+
+    .zone-image:hover {
+        transform: scale(1.05);
+    }
+
+    .zone-image.zoomed {
+        transform: scale(1.15);
+    }
+
+    .parking-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+        flex: 1;
+        min-width: 0;
+    } 
+
+    .parking-space {
+    padding: 12px;
+    font-size: 14px;
+    }
+
+    .image-container {
+        position: relative;
+        flex: 0 0 400px;
+        overflow: hidden;
+        border-radius: 8px;
+    }
